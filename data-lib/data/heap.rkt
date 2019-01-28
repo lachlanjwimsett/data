@@ -140,6 +140,14 @@
        (error 'heap-remove-min! "empty heap"))
      (heap-remove-index! h 0)]))
 
+(define (heap-replace-min! h k)
+  (match h
+    [(heap vec size <=?)
+     (when (zero? size)
+       (error 'heap-remove-min! "empty heap"))
+     (vector-set! vec 0 k)
+     (heapify-down <=? vec 0 (sub1 size))]))
+
 (define (heap-remove-index! h index)
   (match h
     [(heap vec size <=?)
@@ -260,7 +268,8 @@
  [heap-min (-> heap? any/c)]
  [heap-remove-min! (-> heap? void?)]
  [heap-remove! (->* (heap? any/c) [#:same? (-> any/c any/c any/c)] void?)]
-
+ [heap-replace-min! (-> heap? any/c void?)]
+ 
  [vector->heap (-> (-> any/c any/c any/c) vector? heap?)]
  [heap->vector (-> heap? vector?)]
  [heap-copy (-> heap? heap?)]
