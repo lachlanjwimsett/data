@@ -144,7 +144,7 @@
   (match h
     [(heap vec size <=?)
      (when (zero? size)
-       (error 'heap-remove-min! "empty heap"))
+       (error 'heap-replace-min! "empty heap"))
      (vector-set! vec 0 k)
      (heapify-down <=? vec 0 (sub1 size))]))
 
